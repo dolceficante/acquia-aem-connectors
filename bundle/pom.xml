@@ -55,11 +55,41 @@
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.api</artifactId>
-        </dependency>
+            <version>2.4.2</version>
+        </dependency>        
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.jcr.api</artifactId>
         </dependency>
+        <dependency>
+        	<groupId>com.adobe.granite</groupId>
+			<artifactId>com.adobe.granite.replication.core</artifactId>
+			<version>5.12.2</version>
+        </dependency>
+        <!-- 
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3</version>
+		</dependency>   
+		 -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		      
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.event</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+        
     </dependencies>
 
     <!-- ====================================================================== -->

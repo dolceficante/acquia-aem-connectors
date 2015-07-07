@@ -3,35 +3,61 @@
     jcr:primaryType="cq:Dialog"
     xtype="dialog">
     <items jcr:primaryType="cq:WidgetCollection">
-        <general
-            jcr:primaryType="nt:unstructured"
-            title="Acquia Settings"
-            xtype="panel">
+        <tabs jcr:primaryType="cq:TabPanel">
             <items jcr:primaryType="cq:WidgetCollection">
-                <acquiaAccountId
-                    jcr:primaryType="cq:Widget"
-                    fieldLabel="Acquia Account ID"
-                    name="./acquiaAccountId"
-                    xtype="textfield"/>
-				<selectList
-				    jcr:primaryType="cq:Widget"
-				    defaultValue="0"
-				    fieldLabel="Environment"
-				    name="./acquiaEnvironment"
-				    type="select"
-				    xtype="selection">
-				    <options jcr:primaryType="cq:WidgetCollection">
-				        <one
-				            jcr:primaryType="nt:unstructured"
-				            text="Production"
-				            value="production"/>
-				        <two
-				            jcr:primaryType="nt:unstructured"
-				            text="Demo"
-				            value="demo"/>
-				    </options>
-				</selectList>                
-            </items>
-        </general>
+		        <contentHub
+		            jcr:primaryType="nt:unstructured"
+		            title="Lift Settings"
+		            xtype="panel">
+		            <items jcr:primaryType="cq:WidgetCollection">
+		                <serverUrl
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="Content Hub Server"
+		                    name="./serverUrl"
+		                    xtype="textfield"/>		                
+		                <apiKey
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="API Key"
+		                    name="./apiKey"
+		                    xtype="textfield"/>
+		                <secretKey
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="Secret Key"
+		                    name="./secretKey"
+		                    xtype="textfield"/>						            
+		            </items>
+		        </contentHub>
+		        <lift
+		            jcr:primaryType="nt:unstructured"
+		            title="Lift Settings"
+		            xtype="panel">
+		            <items jcr:primaryType="cq:WidgetCollection">
+		                <acquiaAccountId
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="Acquia Account ID"
+		                    name="./acquiaAccountId"
+		                    xtype="textfield"/>
+						<selectList
+						    jcr:primaryType="cq:Widget"
+						    defaultValue="0"
+						    fieldLabel="Environment"
+						    name="./acquiaEnvironment"
+						    type="select"
+						    xtype="selection">
+						    <options jcr:primaryType="cq:WidgetCollection">
+						        <one
+						            jcr:primaryType="nt:unstructured"
+						            text="Production"
+						            value="production"/>
+						        <two
+						            jcr:primaryType="nt:unstructured"
+						            text="Demo"
+						            value="demo"/>
+						    </options>
+						</selectList>                
+		            </items>
+		        </lift>
+		     </items>
+	     </tabs>
     </items>
 </jcr:root>

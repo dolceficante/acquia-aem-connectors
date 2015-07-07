@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:description="Acquia Connectors Pacakge"
     jcr:primaryType="vlt:PackageDefinition"
-	jcr:description="Acquia Lift ContextDB and Recommend&#xd;&#xa;&#xd;&#xa;Unify visitor intelligence and customer behavior from multiple channels and existing systems into a richer, progressive profile to drive contextual experiences in real-time."    
+	jcr:description="Acquia Connectors for AEM brings the Acquia Platform to your AEM environment.  This package provides connectivity to Acquia's ContentHub, Lift Recommend and ContextDB suite of products, to deliver optimized omnichannel experiences across your enterprise platforms."    
     sling:resourceType="cq/packaging/components/pack/definition"
     buildCount="1"
     cqVersion="5.6.1"

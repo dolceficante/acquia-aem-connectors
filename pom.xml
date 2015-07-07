@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>Acquia Connectors - Reactor Project</name>
-    <description>Acquia Lift ContextDB and Recommend&#xd;&#xa;&#xd;&#xa;Unify visitor intelligence and customer behavior from multiple channels and existing systems into a richer, progressive profile to drive contextual experiences in real-time.</description>
+    <description>Acquia Connectors for AEM brings the Acquia Platform to your AEM environment.  This package provides connectivity to Acquia's ContentHub, Lift Recommend and ContextDB suite of products, to deliver optimized omnichannel experiences across your enterprise platforms.</description>
 
     <prerequisites>
         <maven>3.0.2</maven>

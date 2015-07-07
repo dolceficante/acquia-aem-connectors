@@ -63,7 +63,7 @@
                         <embedded>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>acquia-connectors-bundle</artifactId>
-                            <target>/apps/acquia-connectors/install</target>
+                            <target>/apps/acquia/install</target>
                         </embedded>
                     </embeddeds>
                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>

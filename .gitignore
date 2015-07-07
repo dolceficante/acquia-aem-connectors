@@ -76,3 +76,7 @@ content/target/classes/apps/acquia/components/generictracker/.content.xml
 content/target/classes/apps/acquia/components/contextdb/contextdb.jsp
 
 content/target/classes/apps/acquia/components/contextdb/.content.xml
+
+content/target/classes/apps/acquia/config/org.apache.sling.commons.log.LogManager.factory.config-acquia.xml
+
+bundle/target/classes/META-INF/MANIFEST.MF
