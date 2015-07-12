@@ -77,19 +77,47 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.3</version>
 		</dependency>   
-		 -->
+		 
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
+		-->
 		      
 		<dependency>
 			<groupId>org.apache.sling</groupId>
 			<artifactId>org.apache.sling.event</artifactId>
 			<version>3.1.4</version>
 		</dependency>
-        
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.acquia</groupId>
+			<artifactId>http-hmac-java</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency> 
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.6</version>
+		</dependency>	
+
+			    
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -116,6 +144,14 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>com.acquia.acquia-connectors-bundle</Bundle-SymbolicName>
+						<Export-Package>
+							com.acquia.connectors,
+							com.acquia.connectors.*,
+							com.acquia.connectors.impl,
+							com.acquia.connectors.impl.*
+						</Export-Package>
+						<Embed-Dependency>json,httpclient,httpcore,http-hmac-java,commons-codec;scope=compile|runtime;inline=false;</Embed-Dependency>
+						<!-- <Import-Package>*;resolution:=optional</Import-Package>    -->                     
                     </instructions>
                 </configuration>
             </plugin>
