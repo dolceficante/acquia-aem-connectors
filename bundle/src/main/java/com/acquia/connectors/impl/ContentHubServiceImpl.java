@@ -36,9 +36,17 @@ public class ContentHubServiceImpl implements ContentHubService {
 
 	public static void main(String args[]){
 		
-		String api = "ed7a5373-4198-4cc6-a438-aa8c0d48e7a9";
-		String secret = "KydxY1Gb8dngMdCILwBMG1j/mrI+cxprYG1bbk1JoT+D4mM0cN23CDMOXjRAG8x4uyaz2aQ3W1JdiQjddMBc5g==";
-		String baseUrl = "http://plexus-beta2-app-580736450.us-east-1.elb.amazonaws.com";
+		//my AEM instance
+		//String api = "ed7a5373-4198-4cc6-a438-aa8c0d48e7a9";
+		//String secret = "KydxY1Gb8dngMdCILwBMG1j/mrI+cxprYG1bbk1JoT+D4mM0cN23CDMOXjRAG8x4uyaz2aQ3W1JdiQjddMBc5g==";
+		//String baseUrl = "http://plexus-beta2-app-580736450.us-east-1.elb.amazonaws.com";
+
+		//Alejandros
+		String api = "b3e1747e-fe81-4f1e-9769-7562b18e39b2";
+		String secret = "oxgRkcTu797J5vYhUObLKs22yRSxZ8eaFEXnF8WYKkfSMLMBjQpIYOZ+eMnNX2ETcYSX9IolI4zNbFnaPCkNow==";		
+		//String baseUrl = "http://plexus-provision-90-app-486295811.eu-west-1.elb.amazonaws.com";
+		String baseUrl = "http://34003e51.ngrok.io";
+		
 		String origin = "a65e80fe-6a41-428d-4df1-f614f2068aaa";	
 		Map<String,String> config = new HashMap<String,String>();
 		config.put(ContentHubService.BASE_URL, baseUrl);
@@ -50,7 +58,11 @@ public class ContentHubServiceImpl implements ContentHubService {
 		service.init(api, secret, origin, config);
 		JSONObject result = null;
 		try {
-			result = service.createEntities(resourceUrl);
+			//call create entities
+			//result = service.createEntities(resourceUrl);
+			//call /settings
+			System.out.println("service.settings()");
+			result = service.settings();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,11 +86,18 @@ public class ContentHubServiceImpl implements ContentHubService {
 		return response;
 	}	
 	
+	public JSONObject settings() throws Exception {
+		JSONObject request = new JSONObject();
+		JSONObject response = callGetService("/settings");
+		return response;
+	}
+	
 	private JSONObject callPostService(String path, JSONObject json) throws Exception {
 		
 		CloseableHttpClient httpClient = getHttpClient();
 		String baseUrl = config.get(BASE_URL);
 		HttpPut put = new HttpPut(baseUrl + path);
+		System.out.println("calling " + baseUrl + path);
 		
 		//HttpPost post = new HttpPost(baseUrl + path);
 		String contentType = "application/json";
@@ -99,6 +118,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 		CloseableHttpClient httpClient = getHttpClient();
 		String baseUrl = config.get(BASE_URL);
 		HttpGet get = new HttpGet(baseUrl + path);
+		System.out.println("callGetService:" + baseUrl + path);
 		processHeaders(get);
 		get.addHeader("Content-Type","application/json");
 		
