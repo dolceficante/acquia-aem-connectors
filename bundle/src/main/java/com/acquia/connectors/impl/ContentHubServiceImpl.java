@@ -13,14 +13,11 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.acquia.connectors.ContentHubFactory;
 import com.acquia.connectors.ContentHubService;
@@ -34,7 +31,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 	private Map<String,String> config;
 	
 	private static final String DATE_FORMAT = "EEE, d MMM yyyy HH:mm:ss z";
-	private static final Logger LOG = LoggerFactory.getLogger(ContentHubServiceImpl.class);	
+	//private static final Logger LOG = LoggerFactory.getLogger(ContentHubServiceImpl.class);	
 	
 
 	public static void main(String args[]){
@@ -47,7 +44,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 		config.put(ContentHubService.BASE_URL, baseUrl);
 		//String resourceUrl = "https://s3.amazonaws.com/plexus-fixtures.acquia.com/entities.json";
 		String resourceUrl = "http://19c4d583.ngrok.io/content/geometrixx-media/en/entertainment/summer-blockbuster-hits-and-misses.chub.html";
-		LOG.debug("resourceUrl: " + resourceUrl);
+		//LOG.debug("resourceUrl: " + resourceUrl);
 		
 		ContentHubService service = ContentHubFactory.getInstance();
 		service.init(api, secret, origin, config);
@@ -106,7 +103,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 		get.addHeader("Content-Type","application/json");
 		
 		HttpResponse httpResponse = httpClient.execute(get);
-		LOG.debug("HttpResponse: " + httpResponse.getStatusLine().getStatusCode());
+		//LOG.debug("HttpResponse: " + httpResponse.getStatusLine().getStatusCode());
 		JSONObject jsonObj = processResponse(httpResponse);
 		return jsonObj;		
 	
