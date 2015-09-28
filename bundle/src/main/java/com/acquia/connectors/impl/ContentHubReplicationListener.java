@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.acquia.connectors.ContentHubFactory;
 import com.acquia.connectors.ContentHubService;
+import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationEvent;
 
@@ -31,14 +32,28 @@ public class ContentHubReplicationListener implements EventHandler {
 		LOG.debug("--handleEvent2");
 		ReplicationActionType type = event.getReplicationAction().getType();
 		LOG.debug("--type: " + type);
-		String api = "AAAAAAAAAAAAAAAAAAAA";
-		String secret = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-		String baseUrl = "http://plexus-abarriosr-hybris-1722555236.us-east-1.elb.amazonaws.com";
-		String origin = "9e23d436-3d10-49de-63ce-2308b7a9895e";	
+		String[] propertyNames = eventData.getPropertyNames();
+		for (int x=0; x<propertyNames.length; x++){
+			LOG.debug(">>propertyName: " + propertyNames[x]);
+		}
+		ReplicationAction action = event.getReplicationAction();
+		String path = "";
+		if (action != null){
+			LOG.debug("action.getPath(): " + action.getPath());
+			path = action.getPath() + ".chub.html";
+		} else {
+			LOG.debug(">>No ReplicationAction");
+		}
+		String api = "ed7a5373-4198-4cc6-a438-aa8c0d48e7a9";
+		String secret = "KydxY1Gb8dngMdCILwBMG1j/mrI+cxprYG1bbk1JoT+D4mM0cN23CDMOXjRAG8x4uyaz2aQ3W1JdiQjddMBc5g==";
+		String baseUrl = "http://plexus-beta2-app-580736450.us-east-1.elb.amazonaws.com";
+		String origin = "a65e80fe-6a41-428d-4df1-f614f2068aaa";	
 		Map<String,String> config = new HashMap<String,String>();
 		config.put(ContentHubService.BASE_URL, baseUrl);
-		String resourceUrl = "https://s3.amazonaws.com/plexus-fixtures.acquia.com/entities.json";
-
+		//String resourceUrl = "https://s3.amazonaws.com/plexus-fixtures.acquia.com/entities.json";
+		String resourceUrl = "http://19c4d583.ngrok.io" + path;
+		LOG.debug("resourceUrl: " + resourceUrl);
+		
 		switch (type){
 			case ACTIVATE:
 				LOG.debug("----ACTIVATE");
