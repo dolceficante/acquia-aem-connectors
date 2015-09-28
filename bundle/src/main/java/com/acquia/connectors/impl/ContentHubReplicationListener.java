@@ -76,7 +76,8 @@ public class ContentHubReplicationListener implements EventHandler {
 		// TODO Auto-generated method stub
 		ContentHubService service = ContentHubFactory.getInstance();
 		service.init(api, secret, origin, config);
-		JSONObject result = service.createEntities(resourceUrl);
+		//JSONObject result = service.createEntities(resourceUrl);
+		JSONObject result = service.settings();
 		return result;
 	}
 
