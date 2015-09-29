@@ -7,7 +7,7 @@
             <items jcr:primaryType="cq:WidgetCollection">
 		        <contentHub
 		            jcr:primaryType="nt:unstructured"
-		            title="Lift Settings"
+		            title="Content Hub Settings"
 		            xtype="panel">
 		            <items jcr:primaryType="cq:WidgetCollection">
 		                <serverUrl
