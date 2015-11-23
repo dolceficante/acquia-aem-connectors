@@ -9,6 +9,9 @@
                    java.util.Date,
                    java.nio.charset.Charset,
                    java.text.SimpleDateFormat,
+                   javax.jcr.Node,
+				   com.day.cq.wcm.webservicesupport.Configuration,
+				   com.day.cq.wcm.webservicesupport.ConfigurationManager,                  
                    com.day.cq.wcm.api.components.ComponentContext" %><%
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><%@ taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %><%
@@ -36,10 +39,24 @@
         Date modifiedDate = properties.get("jcr:created", Date.class);
         String modifiedDateStr = df.format(modifiedDate);
         
+        
         String path = currentPage.getPath();
         String uuid = UUID.nameUUIDFromBytes(path.getBytes(Charset.forName("UTF-8"))).toString();
         String subTitle = currentPage.getDescription() != null ?
                 currentPage.getDescription() : (String)properties.get("jcr:description", null);
+
+		Node imageNode = currentPage.getContentResource("image").adaptTo(Node.class);
+		String imageUrl = "http://ch.dolceficante.com" + imageNode.getProperty("fileReference").getString();
+		String imageUuid = UUID.nameUUIDFromBytes(imageUrl.getBytes(Charset.forName("UTF-8"))).toString();
+		
+		String[] services = pageProperties.getInherited("cq:cloudserviceconfigs", new String[]{});
+
+		ConfigurationManager cfgMgr = (ConfigurationManager)sling.getService(ConfigurationManager.class);
+		Configuration cfg = cfgMgr.getConfiguration("acquia", services);
+		String hostDomain = "";
+	    if(cfg != null) {
+	        hostDomain = cfg.get("hostDomain", null);
+	    }		
 
         %>
 {
@@ -49,7 +66,8 @@
             "type": "node",
             "created" : "<%= createdDateStr %>",
             "modified": "<%= modifiedDateStr %>",
-            "origin": "2aea82a5-6b98-4380-7a25-31b86bc1545e",
+            "origin": "a65e80fe-6a41-428d-4df1-f614f2068aaa",
+			        
             "attributes": {
 		        "author": {
 		            "type": "reference",
@@ -60,7 +78,7 @@
 		        "body": {
 		            "type": "string",
 		            "value": {
-		                "und": "{\"summary\":\"\",\"value\":\"bookcase\",\"format\":\"filtered_html\"}"
+		                "und": "{\"summary\":\"\",\"value\":\"<%= subTitle %>\",\"format\":\"filtered_html\"}"
 		            }
 		        },
 		        "comments": {
@@ -78,7 +96,7 @@
 		        "field_image": {
 		            "type": "string",
 		            "value": {
-		                "und": "[6f793b69-8858-406b-8204-11dee9f8d3b9]"
+		                "und": "[<%= imageUuid %>]"
 		            }
 		        },
 		        "field_tags": {
@@ -111,7 +129,7 @@
 		        "url": {
 		            "type": "string",
 		            "value": {
-		                "und": "http:\/\/cbf54365.ngrok.io<%= path %>.html"
+		                "und": "<%= hostDomain %><%= path %>.html"
 		            }
 		        }
             }

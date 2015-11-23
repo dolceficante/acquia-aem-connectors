@@ -2,5 +2,7 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/acquia"/>
      <filter root="/apps/foundation"/>
-    <filter root="/etc/cloudservices/acquia"/>
+    <filter root="/etc/cloudservices/acquia">
+    	<exclude pattern="/etc/cloudservices/acquia(/.*)?"/>    
+    </filter>
 </workspaceFilter>

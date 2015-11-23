@@ -116,7 +116,21 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.6</version>
 		</dependency>	
-
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-webservice-support</artifactId>
+			<version>5.6.4</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.day.cq.wcm</groupId>
+		  <artifactId>cq-wcm-api</artifactId>
+		  <version>5.5.0</version>
+		</dependency>			
+		<dependency>
+		  <groupId>com.day.cq</groupId>
+		  <artifactId>cq-commons</artifactId>
+		  <version>5.5.0</version>
+		</dependency>
 			    
     </dependencies>
 

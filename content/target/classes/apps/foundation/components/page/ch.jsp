@@ -10,6 +10,8 @@
                    java.nio.charset.Charset,
                    java.text.SimpleDateFormat,
                    javax.jcr.Node,
+				   com.day.cq.wcm.webservicesupport.Configuration,
+				   com.day.cq.wcm.webservicesupport.ConfigurationManager,                  
                    com.day.cq.wcm.api.components.ComponentContext" %><%
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><%@ taglib prefix="cq" uri="http://www.day.com/taglibs/cq/1.0" %><%
@@ -44,8 +46,17 @@
                 currentPage.getDescription() : (String)properties.get("jcr:description", null);
 
 		Node imageNode = currentPage.getContentResource("image").adaptTo(Node.class);
-		String imageUrl = "http://19c4d583.ngrok.io" + imageNode.getProperty("fileReference").getString();
+		String imageUrl = "http://ch.dolceficante.com" + imageNode.getProperty("fileReference").getString();
 		String imageUuid = UUID.nameUUIDFromBytes(imageUrl.getBytes(Charset.forName("UTF-8"))).toString();
+		
+		String[] services = pageProperties.getInherited("cq:cloudserviceconfigs", new String[]{});
+
+		ConfigurationManager cfgMgr = (ConfigurationManager)sling.getService(ConfigurationManager.class);
+		Configuration cfg = cfgMgr.getConfiguration("acquia", services);
+		String hostDomain = "";
+	    if(cfg != null) {
+	        hostDomain = cfg.get("hostDomain", null);
+	    }		
 
         %>
 {
@@ -118,7 +129,7 @@
 		        "url": {
 		            "type": "string",
 		            "value": {
-		                "und": "http:\/\/19c4d583.ngrok.io<%= path %>.html"
+		                "und": "<%= hostDomain %><%= path %>.html"
 		            }
 		        }
             }

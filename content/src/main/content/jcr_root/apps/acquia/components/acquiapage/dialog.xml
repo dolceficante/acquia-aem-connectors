@@ -14,7 +14,12 @@
 		                    jcr:primaryType="cq:Widget"
 		                    fieldLabel="Content Hub Server"
 		                    name="./serverUrl"
-		                    xtype="textfield"/>		                
+		                    xtype="textfield"/>		
+		                <hostDomain
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="Host Domain"
+		                    name="./hostDomain"
+		                    xtype="textfield"/>			                                    
 		                <apiKey
 		                    jcr:primaryType="cq:Widget"
 		                    fieldLabel="API Key"
@@ -24,7 +29,12 @@
 		                    jcr:primaryType="cq:Widget"
 		                    fieldLabel="Secret Key"
 		                    name="./secretKey"
-		                    xtype="textfield"/>						            
+		                    xtype="textfield"/>			
+						<clientName
+		                    jcr:primaryType="cq:Widget"
+		                    fieldLabel="Client Name"
+		                    name="./clientName"
+		                    xtype="textfield"/>				                    			            
 		            </items>
 		        </contentHub>
 		        <lift
