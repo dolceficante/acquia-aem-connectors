@@ -54,9 +54,13 @@
 		ConfigurationManager cfgMgr = (ConfigurationManager)sling.getService(ConfigurationManager.class);
 		Configuration cfg = cfgMgr.getConfiguration("acquia", services);
 		String hostDomain = "";
+	    String origin = "";
 	    if(cfg != null) {
 	        hostDomain = cfg.get("hostDomain", null);
+	        origin = cfg.get("clientName", null);
 	    }		
+
+	    
 
         %>
 {
@@ -66,7 +70,7 @@
             "type": "node",
             "created" : "<%= createdDateStr %>",
             "modified": "<%= modifiedDateStr %>",
-            "origin": "a65e80fe-6a41-428d-4df1-f614f2068aaa",
+            "origin": "<%= origin %>",
 			        
             "attributes": {
 		        "author": {
@@ -81,22 +85,10 @@
 		                "und": "{\"summary\":\"\",\"value\":\"<%= subTitle %>\",\"format\":\"filtered_html\"}"
 		            }
 		        },
-		        "comments": {
-		            "type": "array\u003creference\u003e",
-		            "value": {
-		                "und": []
-		            }
-		        },
-		        "field_category": {
-		            "type": "reference",
-		            "value": {
-		                "und": "8f9ec3c5-9292-4050-a11a-0173dfabce39"
-		            }
-		        },
-		        "field_image": {
+		        "language": {
 		            "type": "string",
 		            "value": {
-		                "und": "[<%= imageUuid %>]"
+		                "und": "en"
 		            }
 		        },
 		        "field_tags": {
@@ -107,13 +99,7 @@
 		                    "c5e7acf1-1980-43cf-a338-c32ba0cf1bf9"
 		                ]
 		            }
-		        },
-		        "language": {
-		            "type": "string",
-		            "value": {
-		                "und": "en"
-		            }
-		        },
+		        },		        
 		        "title": {
 		            "type": "string",
 		            "value": {
