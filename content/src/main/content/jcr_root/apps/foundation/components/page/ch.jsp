@@ -57,7 +57,7 @@
 	    String origin = "";
 	    if(cfg != null) {
 	        hostDomain = cfg.get("hostDomain", null);
-	        origin = cfg.get("clientName", null);
+	        origin = cfg.get("clientId", null);
 	    }		
 
 	    

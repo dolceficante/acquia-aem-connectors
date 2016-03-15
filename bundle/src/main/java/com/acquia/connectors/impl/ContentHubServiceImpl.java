@@ -13,13 +13,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.protocol.HttpProcessorBuilder;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.acquia.connectors.ContentHubFactory;
 import com.acquia.connectors.ContentHubService;
@@ -33,7 +34,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 	private Map<String,String> config;
 	
 	private static final String DATE_FORMAT = "EEE, d MMM yyyy HH:mm:ss z";
-	//private static final Logger LOG = LoggerFactory.getLogger(ContentHubServiceImpl.class);	
+	private static final Logger LOG = LoggerFactory.getLogger(ContentHubServiceImpl.class);	
 	
 
 	public static void main(String args[]){
@@ -87,7 +88,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 	public JSONObject createEntities(String resourceUrl) throws Exception{
 		JSONObject request = new JSONObject();
 		request.put("resource", resourceUrl);
-		JSONObject response = callPostService("/entities", request);
+		JSONObject response = callPutService("/entities", request);
 		return response;
 	}	
 	
@@ -97,18 +98,22 @@ public class ContentHubServiceImpl implements ContentHubService {
 		return response;
 	}
 	
-	private JSONObject callPostService(String path, JSONObject json) throws Exception {
+	private JSONObject callPutService(String path, JSONObject json) throws Exception {
+		
+		LOG.debug("callPutService");
+		LOG.debug("path: " + path);
+		LOG.debug("json: " + json);
 		
 		CloseableHttpClient httpClient = getHttpClient();
 		String baseUrl = config.get(BASE_URL);
 		HttpPut put = new HttpPut(baseUrl + path);
-		System.out.println("calling " + baseUrl + path);
+		LOG.debug("calling " + baseUrl + path);
 		
 		//HttpPost post = new HttpPost(baseUrl + path);
 		//String contentType = "application/json";
 		String jsonString = json.toString();
-		System.out.println(jsonString);
-		System.out.println("jsonString length:" + jsonString.length());
+		LOG.debug(jsonString);
+		LOG.debug("jsonString length:" + jsonString.length());
 		StringEntity data = new StringEntity(json.toString(),"UTF-8");
 		data.setContentType("application/json");
 		//post.setEntity(data);		
@@ -122,6 +127,27 @@ public class ContentHubServiceImpl implements ContentHubService {
 		JSONObject jsonObj = processResponse(httpResponse);
 		return jsonObj;	
 	}
+	
+	private JSONObject callPostService(String path, JSONObject json) throws Exception {
+		
+		LOG.debug("callPostService");
+		LOG.debug("path: " + path);
+		LOG.debug("json: " + json);
+		
+		CloseableHttpClient httpClient = getHttpClient();
+		String baseUrl = config.get(BASE_URL);
+		HttpPost post = new HttpPost(baseUrl + path);
+		
+		StringEntity data = new StringEntity(json.toString(),"UTF-8");
+		data.setContentType("application/json");
+		post.setEntity(data);
+		processHeaders(post);
+
+		HttpResponse httpResponse = httpClient.execute(post); 
+		JSONObject jsonObj = processResponse(httpResponse);
+		LOG.debug("return: " + jsonObj);
+		return jsonObj;	
+	}	
 
 	private JSONObject callGetService(String path) throws Exception {
 		CloseableHttpClient httpClient = getHttpClient();
@@ -132,7 +158,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 		get.addHeader("Content-Type","application/json");
 		
 		HttpResponse httpResponse = httpClient.execute(get);
-		//LOG.debug("HttpResponse: " + httpResponse.getStatusLine().getStatusCode());
+		LOG.debug("HttpResponse: " + httpResponse.getStatusLine().getStatusCode());
 		JSONObject jsonObj = processResponse(httpResponse);
 		return jsonObj;		
 	
@@ -178,7 +204,7 @@ public class ContentHubServiceImpl implements ContentHubService {
 	}
 	
 	private JSONObject processResponse(HttpResponse response) throws Exception {
-		System.out.println("client response:" + response.getStatusLine().getStatusCode());	
+		LOG.debug("client response:" + response.getStatusLine().getStatusCode());	
 		
 		HttpEntity entity = response.getEntity();
 		InputStream in = entity.getContent();
@@ -187,6 +213,14 @@ public class ContentHubServiceImpl implements ContentHubService {
 		
 		JSONObject jsonObj = new JSONObject(result);	
 		return jsonObj;
+	}
+
+	public String register(String clientName) throws Exception {
+		JSONObject request = new JSONObject();
+		request.put("name", clientName);
+		JSONObject response = callPostService("/register", request);
+		String uuid = response.optString("uuid");
+		return uuid;
 	}
 
 }

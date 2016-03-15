@@ -1,26 +1,41 @@
-<%@page session="false"%><%--
-  Copyright 1997-2009 Day Management AG
-  Barfuesserplatz 6, 4001 Basel, Switzerland
-  All Rights Reserved.
+<%@page contentType="text/html"
+            pageEncoding="utf-8"%>
+<%@ page import="java.util.Map,
+				java.util.HashMap,
+				org.json.JSONObject,
+				org.apache.sling.api.resource.ModifiableValueMap,
+				com.acquia.connectors.ContentHubFactory,
+				com.acquia.connectors.ContentHubService" %>            
+            <%@include file="/libs/foundation/global.jsp"%>
+<%
 
-  This software is the confidential and proprietary information of
-  Day Management AG, ("Confidential Information"). You shall not
-  disclose such Confidential Information and shall use it only in
-  accordance with the terms of the license agreement you entered into
-  with Day.
+	String clientName = properties.get("clientName",null);
+	String clientId = properties.get("clientId",null);
+	String apiKey = properties.get("apiKey",null);
+	String secretKey = properties.get("secretKey",null);
+	String baseUrl = properties.get("serverUrl",null);
+	String uuid = null;
+	
+	Map<String,String> chConfig = new HashMap<String,String>();
+		chConfig.put(ContentHubService.BASE_URL, baseUrl);
+	
+	if (clientName != null && clientId == null){
+		ContentHubService service = ContentHubFactory.getInstance();
+		service.init(apiKey, secretKey, "", chConfig);
+		uuid = service.register(clientName);
+		ModifiableValueMap map = resource.adaptTo(ModifiableValueMap.class);
+		map.put("clientId", uuid);
+		resource.getResourceResolver().commit();
+	}
+%>            
 
-  ==============================================================================
-
-
-
---%><%@page contentType="text/html"
-            pageEncoding="utf-8"%><%
-%><%@include file="/libs/foundation/global.jsp"%><div>
 
 <div>
-    <h3>General Tracker Settings</h3>   
+    <h3>Acquia Settings</h3>   
     <ul>
-        <li><div class="li-bullet"><strong>Acquia ID: </strong><br><%= xssAPI.encodeForHTML(properties.get("acquiaAccountId", "")).replaceAll("\\&\\#xa;","<br>") %></div></li>
+        <li><div class="li-bullet"><strong>Client Name: </strong><br><%= clientName %></div></li>
+        <li><div class="li-bullet"><strong>Origin UUID: </strong><br><%= clientId %></div></li>
+        <li><div class="li-bullet"><strong>UUID: </strong><br><%= uuid %></div></li>
     </ul>
 </div>
 

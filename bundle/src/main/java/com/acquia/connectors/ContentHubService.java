@@ -10,4 +10,5 @@ public interface ContentHubService {
 	public void init(String api, String secret, String origin, Map<String,String> config);
 	public JSONObject createEntities(String resourceUrl) throws Exception;
 	public JSONObject settings() throws Exception;
+	public String register(String clientName) throws Exception;
 }

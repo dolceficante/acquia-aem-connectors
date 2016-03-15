@@ -112,7 +112,7 @@ public class ContentHubReplicationListener implements Runnable, EventHandler {
 	        api = cfg.get("apiKey", null);
 	        secret = cfg.get("secretKey", null);
 	        baseUrl = cfg.get("serverUrl", null);
-	        origin = cfg.get("clientName", null);
+	        origin = cfg.get("clientId", null);
 	        hostDomain = cfg.get("hostDomain", null);
 	    }		
 	    LOG.debug("api: " + api);
