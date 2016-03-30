@@ -29,7 +29,7 @@
 		                    jcr:primaryType="cq:Widget"
 		                    fieldLabel="Secret Key"
 		                    name="./secretKey"
-		                    xtype="textfield"/>			
+		                    xtype="password"/>			
 						<clientName
 		                    jcr:primaryType="cq:Widget"
 		                    fieldLabel="Client Name"

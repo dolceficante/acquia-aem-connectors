@@ -27,6 +27,9 @@
 		map.put("clientId", uuid);
 		resource.getResourceResolver().commit();
 	}
+	if (uuid != null){
+		clientId = uuid;
+	}
 %>            
 
 
@@ -35,7 +38,7 @@
     <ul>
         <li><div class="li-bullet"><strong>Client Name: </strong><br><%= clientName %></div></li>
         <li><div class="li-bullet"><strong>Origin UUID: </strong><br><%= clientId %></div></li>
-        <li><div class="li-bullet"><strong>UUID: </strong><br><%= uuid %></div></li>
+        <!--<li><div class="li-bullet"><strong>UUID: </strong><br><%= uuid %></div></li>-->
     </ul>
 </div>
 
