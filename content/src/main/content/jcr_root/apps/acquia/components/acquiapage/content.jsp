@@ -4,8 +4,7 @@
 				java.util.HashMap,
 				org.json.JSONObject,
 				org.apache.sling.api.resource.ModifiableValueMap,
-				com.acquia.connectors.ContentHubFactory,
-				com.acquia.connectors.ContentHubService" %>            
+				com.acquia.connectors.ContentHubUtil"  %>            
             <%@include file="/libs/foundation/global.jsp"%>
 <%
 
@@ -16,13 +15,10 @@
 	String baseUrl = properties.get("serverUrl",null);
 	String uuid = null;
 	
-	Map<String,String> chConfig = new HashMap<String,String>();
-		chConfig.put(ContentHubService.BASE_URL, baseUrl);
-	
 	if (clientName != null && clientId == null){
-		ContentHubService service = ContentHubFactory.getInstance();
-		service.init(apiKey, secretKey, "", chConfig);
-		uuid = service.register(clientName);
+		ContentHubUtil chUtil = new ContentHubUtil(apiKey, secretKey, baseUrl);
+		uuid = chUtil.registerClient(clientName);
+
 		ModifiableValueMap map = resource.adaptTo(ModifiableValueMap.class);
 		map.put("clientId", uuid);
 		resource.getResourceResolver().commit();
